@@ -5,18 +5,26 @@ import (
 	"strings"
 )
 
-const Spanish = "SPANISH"
-const French = "FRENCH"
-const Esperanto = "ESPERANTO"
-const englishHelloPrefix = "Hello, "
-const spanishHelloPrefix = "Hola, "
-const frenchHelloPrefix = "Bonjour, "
-const esperantoHelloPrefix = "Saluton, "
+const (
+	Spanish              = "SPANISH"
+	French               = "FRENCH"
+	Esperanto            = "ESPERANTO"
+	englishHelloPrefix   = "Hello, "
+	spanishHelloPrefix   = "Hola, "
+	frenchHelloPrefix    = "Bonjour, "
+	esperantoHelloPrefix = "Saluton, "
+)
 
-func Hello(name string, language string) string {
+func Hello(name string, language string) (prefix string) {
 
-	var prefix string
+	if name == "" {
+		name = "World"
+	}
 
+	return greetingPrefix(language) + name
+}
+
+func greetingPrefix(language string) (prefix string) {
 	switch strings.ToUpper(language) {
 	case Spanish:
 		prefix = spanishHelloPrefix
@@ -27,13 +35,9 @@ func Hello(name string, language string) string {
 	default:
 		prefix = englishHelloPrefix
 	}
-
-	if name == "" {
-		return prefix + "World"
-	}
-
-	return prefix + name
+	return
 }
+
 func main() {
 	fmt.Println(Hello("World", ""))
 }
